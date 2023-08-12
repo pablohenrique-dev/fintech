@@ -20,9 +20,12 @@ const baseStyles = css`
   font-weight: 400;
   padding: 1.6rem 3.2rem;
   transition: 0.2s;
+  border-left: 6px solid ${(props) => props.theme["bg-900"]}; 
+  cursor: pointer;
 
   &:hover {
     background: ${(props) => props.theme["bg-800"]};
+    border-color: ${(props) => props.theme["bg-800"]};
   }
 `;
 
@@ -30,12 +33,9 @@ export const StyledNavLink = styled(NavLink)`
   ${baseStyles};
   
   &.active {
-    background: ${(props) => props.theme["primary-300"]};
+    background: ${(props) => props.theme["bg-800"]};
     color: ${(props) => props.theme["white"]};
-
-    &:hover {
-      background: ${(props) => props.theme["primary-500"]};
-    }
+    border-color: ${(props) => props.theme["primary-300"]};
   }
 `;
 

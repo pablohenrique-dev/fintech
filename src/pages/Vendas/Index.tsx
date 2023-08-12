@@ -1,3 +1,10 @@
+import { Header } from "../../components/Header/Index";
+import { Container } from "../../components/utils/styles";
+
 export const Vendas = () => {
-  return <h1>Vendas</h1>;
+  return (
+    <Container>
+      <Header />
+    </Container>
+  );
 };

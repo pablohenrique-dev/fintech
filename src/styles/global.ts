@@ -21,6 +21,22 @@ export const GlobalStyle = createGlobalStyle`
   main{
     display: grid;
     grid-template-columns: 30rem auto;
-    
   }
+
+  ::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: ${(props) => props.theme["bg-900"]};
+}
+
+::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: ${(props) => props.theme["bg-700"]};
+}
 `;
