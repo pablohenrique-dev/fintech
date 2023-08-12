@@ -6,7 +6,7 @@ const gridLayout = css`
 `;
 
 const gap = css`
-  gap: 3.2rem;
+  gap: 2.4rem;
 `;
 
 export const HeaderContainer = styled.header`
@@ -24,24 +24,8 @@ export const DateSelectorContainer = styled.div`
   background: ${(props) => props.theme["bg-900"]};
   ${gap};
   border-radius: 4px;
-  padding: 3.2rem;
+  padding: 2.4rem;
   ${gridLayout};
-`;
-
-export const SummaryContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background: ${(props) => props.theme["bg-900"]};
-  padding: 3.2rem;
-  border-radius: 4px;
-`;
-
-export const Title = styled.h2`
-  font-size: 2rem;
-  font-weight: 400;
-  text-transform: capitalize;
-  color: ${(props) => props.theme["text-400"]};
 `;
 
 export const MonthsButtonContainer = styled.div`
@@ -49,7 +33,3 @@ export const MonthsButtonContainer = styled.div`
   ${gap};
 `;
 
-export const Amount = styled.span`
-  font-size: 3.8rem;
-  color: ${(props) => props.theme["white"]};
-`;

@@ -4,14 +4,11 @@ import { Input } from "../Input/Index";
 import {
   HeaderContainer,
   DateSelectorContainer,
-  SummaryContainer,
-  Title,
   HeaderFirstLine,
   MonthsButtonContainer,
-  Amount,
 } from "./styles";
 import { Button } from "../Button/Index";
-import { priceFormatter } from "../utils/formatter";
+import { Summary } from "../Summary/Index";
 
 export const Header = () => {
   const { pathname } = useLocation();
@@ -26,10 +23,7 @@ export const Header = () => {
           <Input type="date" label="Início" />
           <Input type="date" label="Final" />
         </DateSelectorContainer>
-        <SummaryContainer>
-          <Title>{location}</Title>
-          <Amount>{priceFormatter.format(total)}</Amount>
-        </SummaryContainer>
+        <Summary title={location} amount={total} />
       </HeaderFirstLine>
       <MonthsButtonContainer>
         <Button>Maio</Button>
