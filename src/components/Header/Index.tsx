@@ -9,21 +9,45 @@ import {
 } from "./styles";
 import { Button } from "../Button/Index";
 import { Summary } from "../Summary/Index";
+import { Action } from "../../pages/Resumo/Index";
 
-export const Header = () => {
+interface HeaderProps {
+  state: { inicio: string; final: string };
+  dispatch: React.Dispatch<Action>;
+}
+
+export const Header = ({ state, dispatch }: HeaderProps) => {
   const { pathname } = useLocation();
   const location = pathname === "/" ? "resumo" : pathname.replace("/", "");
 
-  const [total, setTotal] = React.useState(2364.55);
+  const handleChangeInicio: React.ChangeEventHandler<HTMLInputElement> = (
+    e
+  ) => {
+    dispatch({ type: "SET_INICIO", payload: e.target.value });
+  };
+
+  const handleChangeFinal: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    dispatch({ type: "SET_FINAL", payload: e.target.value });
+  };
 
   return (
     <HeaderContainer>
       <HeaderFirstLine>
         <DateSelectorContainer>
-          <Input type="date" label="Início" />
-          <Input type="date" label="Final" />
+          <Input
+            type="date"
+            value={state.inicio}
+            onChange={handleChangeInicio}
+            label="Início"
+          />
+          <Input
+            type="date"
+            value={state.final}
+            onChange={handleChangeFinal}
+            label="Final"
+          />
         </DateSelectorContainer>
-        <Summary title={location} amount={total} />
+        <Summary title={location} />
       </HeaderFirstLine>
       <MonthsButtonContainer>
         <Button>Maio</Button>
