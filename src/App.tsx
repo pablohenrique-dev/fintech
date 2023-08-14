@@ -1,25 +1,27 @@
-import { styled } from "styled-components";
 import { Sidebar } from "./components/Sidebar/Index";
 import { Routes, Route } from "react-router-dom";
 
 import { Resumo } from "./pages/Resumo/Index";
 import { Vendas } from "./pages/Vendas/Index";
-
-const Container = styled.div`
-  display: grid;
-  grid-template-columns: 28rem 1fr;
-`;
+import { Header } from "./components/Header/Index";
+import { SalesContextProvider } from "./contexts/SalesContext";
+import { AppContainer } from "./styles/global";
 
 function App() {
   return (
     <>
-      <Container>
+      <AppContainer>
         <Sidebar />
-        <Routes>
-          <Route path="/" element={<Resumo />} />
-          <Route path="/vendas" element={<Vendas />} />
-        </Routes>
-      </Container>
+        <SalesContextProvider>
+          <div>
+            <Header />
+            <Routes>
+              <Route path="/" element={<Resumo />} />
+              <Route path="/vendas" element={<Vendas />} />
+            </Routes>
+          </div>
+        </SalesContextProvider>
+      </AppContainer>
     </>
   );
 }

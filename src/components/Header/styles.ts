@@ -13,6 +13,7 @@ export const HeaderContainer = styled.header`
   display: flex;
   flex-direction: column;
   ${gap};
+  padding: 2.4rem 2.4rem 0;
 `;
 
 export const HeaderFirstLine = styled.div`

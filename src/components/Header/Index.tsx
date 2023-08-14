@@ -9,14 +9,11 @@ import {
 } from "./styles";
 import { Button } from "../Button/Index";
 import { Summary } from "../Summary/Index";
-import { Action } from "../../pages/Resumo/Index";
+import { SalesContext } from "../../contexts/SalesContext";
 
-interface HeaderProps {
-  state: { inicio: string; final: string };
-  dispatch: React.Dispatch<Action>;
-}
+export const Header = () => {
+  const { state, dispatch } = React.useContext(SalesContext);
 
-export const Header = ({ state, dispatch }: HeaderProps) => {
   const { pathname } = useLocation();
   const location = pathname === "/" ? "resumo" : pathname.replace("/", "");
 
@@ -36,13 +33,13 @@ export const Header = ({ state, dispatch }: HeaderProps) => {
         <DateSelectorContainer>
           <Input
             type="date"
-            value={state.inicio}
+            value={state?.inicio}
             onChange={handleChangeInicio}
             label="Início"
           />
           <Input
             type="date"
-            value={state.final}
+            value={state?.final}
             onChange={handleChangeFinal}
             label="Final"
           />
