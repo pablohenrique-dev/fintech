@@ -19,6 +19,6 @@ export const Title = styled.h2`
 `;
 
 export const Amount = styled.span`
-  font-size: 3.8rem;
+  font-size: 3.2rem;
   color: ${(props) => props.theme["white"]};
 `;

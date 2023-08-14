@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { styled, createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
   *{
@@ -39,4 +39,16 @@ export const GlobalStyle = createGlobalStyle`
 ::-webkit-scrollbar-thumb:hover {
   background: ${(props) => props.theme["bg-700"]};
 }
+`;
+
+export const AppContainer = styled.div`
+  display: grid;
+  grid-template-columns: 28rem 1fr;
+`;
+
+export const PageContainer = styled.section`
+  padding: 2.4rem;
+  display: flex;
+  gap: 2.4rem;
+  flex-direction: column;
 `;
