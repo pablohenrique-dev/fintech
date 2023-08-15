@@ -15,7 +15,7 @@ export const Header = () => {
   const { state, dispatch } = React.useContext(SalesContext);
 
   const { pathname } = useLocation();
-  const location = pathname === "/" ? "resumo" : pathname.replace("/", "");
+  const location = pathname === "/" ? "resumo" : "vendas";
 
   const handleChangeInicio: React.ChangeEventHandler<HTMLInputElement> = (
     e

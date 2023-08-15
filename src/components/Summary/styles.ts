@@ -16,9 +16,17 @@ export const Title = styled.h2`
   text-transform: capitalize;
   color: ${(props) => props.theme["text-400"]};
   padding-bottom: 1.6rem;
+
+  @media (max-width: 1088px) {
+    font-size: 1.6rem;
+  }
 `;
 
 export const Amount = styled.span`
   font-size: 3.2rem;
   color: ${(props) => props.theme["white"]};
+
+  @media (max-width: 1088px) {
+    font-size: 2.4rem;
+  }
 `;
