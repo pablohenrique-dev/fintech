@@ -5,6 +5,7 @@ import { sumValues } from "../../components/utils/sumValues";
 import { SalesContext } from "../../contexts/SalesContext";
 import { PageContainer } from "../../styles/global";
 import { Loading } from "../../components/Loading/Index";
+import { Chart } from "../../components/Chart/Index";
 
 export const Resumo = () => {
   const { data, loading } = React.useContext(SalesContext);
@@ -41,6 +42,7 @@ export const Resumo = () => {
             <Summary title="Processando" amount={processing} />
           )}
         </SummaryContainer>
+        <Chart data={data} />
       </PageContainer>
     );
 };
