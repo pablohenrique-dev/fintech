@@ -1,4 +1,4 @@
-import { styled, createGlobalStyle } from "styled-components";
+import { styled, createGlobalStyle, keyframes } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
   *{
@@ -46,9 +46,21 @@ export const AppContainer = styled.div`
   grid-template-columns: 28rem 1fr;
 `;
 
+export const fadeRight = keyframes`
+  from{
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to{
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
+
 export const PageContainer = styled.section`
   padding: 2.4rem;
   display: flex;
   gap: 2.4rem;
   flex-direction: column;
+  animation: ${fadeRight} .3s forwards;
 `;

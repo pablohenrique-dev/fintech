@@ -4,9 +4,10 @@ import { SummaryContainer } from "./styles";
 import { sumValues } from "../../components/utils/sumValues";
 import { SalesContext } from "../../contexts/SalesContext";
 import { PageContainer } from "../../styles/global";
+import { Loading } from "../../components/Loading/Index";
 
 export const Resumo = () => {
-  const { data } = React.useContext(SalesContext);
+  const { data, loading } = React.useContext(SalesContext);
 
   const sales = data
     ? sumValues(
@@ -24,15 +25,22 @@ export const Resumo = () => {
     ? sumValues(data, (value) => value.status === "processando", 0)
     : 0;
 
-  return (
-    <PageContainer>
-      <SummaryContainer>
-        {sales !== null && <Summary title="Vendas" amount={sales} />}
-        {received !== null && <Summary title="Recebido" amount={received} />}
-        {processing !== null && (
-          <Summary title="Processando" amount={processing} />
-        )}
-      </SummaryContainer>
-    </PageContainer>
-  );
+  if (loading)
+    return (
+      <div style={{ width: "100%" }}>
+        <Loading />
+      </div>
+    );
+  if (data)
+    return (
+      <PageContainer>
+        <SummaryContainer>
+          {sales !== null && <Summary title="Vendas" amount={sales} />}
+          {received !== null && <Summary title="Recebido" amount={received} />}
+          {processing !== null && (
+            <Summary title="Processando" amount={processing} />
+          )}
+        </SummaryContainer>
+      </PageContainer>
+    );
 };
