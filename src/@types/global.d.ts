@@ -1,4 +1,4 @@
-export interface Vendas {
+export interface IVenda {
   id: string;
   nome: string;
   status: "falha" | "pago" | "processando";

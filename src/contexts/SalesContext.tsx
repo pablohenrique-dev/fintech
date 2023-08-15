@@ -1,7 +1,7 @@
 import React from "react";
 import { useFetch } from "../hooks/useFetch";
 import { BASE_URL } from "../components/utils/api";
-import { Vendas } from "../@types/global";
+import { IVenda } from "../@types/global";
 import { dateNow } from "../components/utils/dateNow";
 
 interface State {
@@ -14,7 +14,7 @@ type Action =
   | { type: "SET_FINAL"; payload: string };
 
 interface ISales {
-  data: Vendas[] | null;
+  data: IVenda[] | null;
   loading: boolean;
   error: string | null;
   state: State;
@@ -48,7 +48,7 @@ export const SalesContextProvider = ({ children }: React.PropsWithChildren) => {
 
   const URL = `${BASE_URL}/?inicio=${state.inicio}&final=${state.final}`;
 
-  const { data, loading, error } = useFetch<Vendas[]>(URL);
+  const { data, loading, error } = useFetch<IVenda[]>(URL);
 
   return (
     <SalesContext.Provider value={{ data, loading, error, state, dispatch }}>

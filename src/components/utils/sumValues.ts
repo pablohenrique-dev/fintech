@@ -1,8 +1,8 @@
-import { Vendas } from "../../@types/global";
+import { IVenda } from "../../@types/global";
 
 export function sumValues(
-  data: Vendas[] | undefined,
-  condition: (value: Vendas) => boolean,
+  data: IVenda[] | undefined,
+  condition: (value: IVenda) => boolean,
   initialValue: number
 ) {
   if (data)
