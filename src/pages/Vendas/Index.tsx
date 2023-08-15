@@ -1,24 +1,33 @@
 import React from "react";
 import { SalesContext } from "../../contexts/SalesContext";
 import { PageContainer } from "../../styles/global";
+import { Message, NavLink } from "./styles";
+import { priceFormatter } from "../../components/utils/formatter";
+import { Loading } from "../../components/Loading/Index";
 
 export const Vendas = () => {
-  const { data } = React.useContext(SalesContext);
+  const { data, loading } = React.useContext(SalesContext);
 
-  return (
-    <PageContainer>
-      <ul>
+  if (loading)
+    return (
+      <div style={{ width: "100%" }}>
+        <Loading />
+      </div>
+    );
+  if (data)
+    return (
+      <PageContainer>
         {data &&
-          data.map((venda) => {
-            if (venda.status !== "falha")
-              return (
-                <li key={venda.id}>
-                  <h2>{venda.nome}</h2>
-                </li>
-              );
-          })}
-      </ul>
-      {data?.length === 0 && <h1>Nenhuma venda realizada nesta data!</h1>}
-    </PageContainer>
-  );
+          data.map((venda) => (
+            <NavLink key={venda.id} to={venda.id}>
+              <span>{venda.id}</span>
+              <p>{venda.nome}</p>
+              <p>{priceFormatter.format(venda.preco)}</p>
+            </NavLink>
+          ))}
+        {data?.length === 0 && (
+          <Message>Nenhuma venda realizada nesta data!</Message>
+        )}
+      </PageContainer>
+    );
 };
