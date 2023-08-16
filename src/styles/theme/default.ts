@@ -5,8 +5,8 @@ export const defaultTheme = {
   "bg-800": "#202024",
   "bg-700": "#323236",
 
-  "primary-300": "#1818CC",
-  "primary-500": "#00008C",
+  "primary-300": "#175BE5",
+  "primary-500": "#0F35BC",
 
   "text-300": "#E1E1E6",
   "text-400": "#C4C4CC",

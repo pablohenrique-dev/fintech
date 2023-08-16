@@ -19,7 +19,7 @@ export const Chart = ({ data }: { data: IVenda[] }) => {
         <XAxis dataKey="data" />
         <YAxis />
         <CartesianGrid stroke="#323236" />
-        <Line type="monotone" dataKey="pago" stroke="#3535e0" strokeWidth={3} />
+        <Line type="monotone" dataKey="pago" stroke="#175BE5" strokeWidth={3} />
         <Line
           type="monotone"
           dataKey="processando"
@@ -29,7 +29,7 @@ export const Chart = ({ data }: { data: IVenda[] }) => {
         <Line
           type="monotone"
           dataKey="falha"
-          stroke="#fab810"
+          stroke="#fa5210"
           strokeWidth={3}
         />
         <Legend />
