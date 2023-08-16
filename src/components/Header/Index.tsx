@@ -10,12 +10,21 @@ import {
 import { Button } from "../Button/Index";
 import { Summary } from "../Summary/Index";
 import { SalesContext } from "../../contexts/SalesContext";
+import { findMonths, getDaysInOneMonth } from "../utils/time";
 
 export const Header = () => {
+  const [page, setPage] = React.useState("resumo");
   const { state, dispatch } = React.useContext(SalesContext);
-
   const { pathname } = useLocation();
-  const location = pathname === "/" ? "resumo" : "vendas";
+  const lastFourMonths = findMonths(new Date().getMonth());
+
+  React.useEffect(() => {
+    if (pathname === "/") {
+      setPage("resumo");
+    } else {
+      setPage("vendas");
+    }
+  }, [page, pathname]);
 
   const handleChangeInicio: React.ChangeEventHandler<HTMLInputElement> = (
     e
@@ -26,6 +35,20 @@ export const Header = () => {
   const handleChangeFinal: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     dispatch({ type: "SET_FINAL", payload: e.target.value });
   };
+
+  function handleButtonMonth(monthIndex: number) {
+    const clickedMonth = String(monthIndex + 1).padStart(2, "0");
+    const currentYear = new Date().getFullYear();
+    const lastDayOfTheMonth = getDaysInOneMonth(currentYear, monthIndex + 1);
+    dispatch({
+      type: "SET_INICIO",
+      payload: `${currentYear}-${clickedMonth}-01`,
+    });
+    dispatch({
+      type: "SET_FINAL",
+      payload: `${currentYear}-${clickedMonth}-${lastDayOfTheMonth}`,
+    });
+  }
 
   return (
     <HeaderContainer>
@@ -44,13 +67,15 @@ export const Header = () => {
             label="Final"
           />
         </DateSelectorContainer>
-        <Summary title={location} />
+        <Summary title={page} />
       </HeaderFirstLine>
       <MonthsButtonContainer>
-        <Button>Maio</Button>
-        <Button>Junho</Button>
-        <Button>Julho</Button>
-        <Button>Agosto</Button>
+        {lastFourMonths &&
+          lastFourMonths.map((month) => (
+            <Button onClick={() => handleButtonMonth(month[1])} key={month[1]}>
+              {month[0]}
+            </Button>
+          ))}
       </MonthsButtonContainer>
     </HeaderContainer>
   );

@@ -2,7 +2,7 @@ import React from "react";
 import { useFetch } from "../hooks/useFetch";
 import { BASE_URL } from "../components/utils/api";
 import { IVenda } from "../@types/global";
-import { dateNow } from "../components/utils/dateNow";
+import { dateNow } from "../components/utils/time";
 
 interface State {
   inicio: string;
