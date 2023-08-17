@@ -1,6 +1,5 @@
 import { styled } from "styled-components";
 import { Link } from "react-router-dom";
-import { fadeRight } from "../../styles/global";
 
 export const NavLink = styled(Link)`
   background: ${(props) => props.theme["bg-700"]};
@@ -29,9 +28,3 @@ export const NavLink = styled(Link)`
   }
 `;
 
-export const Message = styled.h1`
-  font-size: 4rem;
-  font-weight: 400;
-  color: ${(props) => props.theme.white};
-  animation: ${fadeRight} .3s forwards;   
-`;

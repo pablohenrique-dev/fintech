@@ -6,9 +6,11 @@ import { SalesContext } from "../../contexts/SalesContext";
 import { PageContainer } from "../../styles/global";
 import { Loading } from "../../components/Loading/Index";
 import { Chart } from "../../components/Chart/Index";
+import { Head } from "../../components/Head/Index";
+import { Message } from "../../components/Message/Index";
 
 export const Resumo = () => {
-  const { data, loading } = React.useContext(SalesContext);
+  const { data, loading, error } = React.useContext(SalesContext);
 
   const sales = data
     ? sumValues(
@@ -32,9 +34,27 @@ export const Resumo = () => {
         <Loading />
       </div>
     );
+  if (data?.length === 0)
+    return (
+      <PageContainer>
+        <Message>
+          Nenhuma transação foi realizada no período selecionado! 😅
+        </Message>
+      </PageContainer>
+    );
+  if (error)
+    return (
+      <PageContainer>
+        <Message>{error}</Message>
+      </PageContainer>
+    );
   if (data)
     return (
       <PageContainer>
+        <Head
+          title="Resumo"
+          description="Insights poderosos das estatísticas de vendas da Fintech!"
+        />
         <SummaryContainer>
           {sales !== null && <Summary title="Vendas" amount={sales} />}
           {received !== null && <Summary title="Recebido" amount={received} />}

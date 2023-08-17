@@ -6,19 +6,26 @@ import { PageContainer } from "../../styles/global";
 import { Display } from "./styles";
 import { priceFormatter } from "../../components/utils/formatter";
 import { Loading } from "../../components/Loading/Index";
+import { Message } from "../../components/Message/Index";
 
 export const Venda = () => {
   const { id } = useParams();
 
   const URL_VENDA = BASE_URL + "/" + id;
 
-  const { data, loading } = useFetch<IVenda>(URL_VENDA);
+  const { data, loading, error } = useFetch<IVenda>(URL_VENDA);
 
   if (loading)
     return (
       <div style={{ width: "100%" }}>
         <Loading />
       </div>
+    );
+  if (error)
+    return (
+      <PageContainer>
+        <Message>{error}</Message>
+      </PageContainer>
     );
   if (data)
     return (
