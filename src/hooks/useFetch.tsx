@@ -1,31 +1,51 @@
 import React from "react";
 
-export function useFetch<T>(url: string, options?: RequestInit) {
+interface FetchState<T> {
+  data: T | null;
+  loading: boolean;
+  error: string | null;
+}
+
+export function useFetch<T>(
+  url: RequestInfo | URL,
+  options?: RequestInit
+): FetchState<T> {
   const [data, setData] = React.useState<T | null>(null);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
 
+  const optionsRef = React.useRef(options);
+  // garante que o novo options funcione
+  optionsRef.current = options;
+
   React.useEffect(() => {
-    async function fetchData() {
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    const fetchData = async () => {
       setLoading(true);
       setData(null);
       try {
-        const response = await fetch(url, options);
-        if (!response.ok) throw new Error("Error " + response.status);
+        const response = await fetch(url, {
+          signal,
+          ...optionsRef.current,
+        });
+        if (!response.ok) throw new Error(`Error: ${response.status}`);
         const data = (await response.json()) as T;
-        setData(data);
+        if (!signal.aborted) setData(data);
       } catch (error) {
-        if (error instanceof Error) {
-          console.error(error.message);
-          setError(error.message);
-        }
+        if (!signal.aborted && error instanceof Error) setError(error.message);
       } finally {
-        setLoading(false);
+        if (!signal.aborted) setLoading(false);
       }
-    }
+    };
 
     fetchData();
-  }, [url, options]);
+
+    return () => {
+      controller.abort();
+    };
+  }, [url]);
 
   return { data, loading, error };
 }
