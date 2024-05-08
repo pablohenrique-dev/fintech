@@ -10,7 +10,7 @@ import { Head } from "../../components/Head/Index";
 import { Message } from "../../components/Message/Index";
 
 export const Resumo = () => {
-  const { data, loading, error } = React.useContext(SalesContext);
+  const { data, isLoading, error } = React.useContext(SalesContext);
 
   const sales = data
     ? sumValues(
@@ -28,7 +28,7 @@ export const Resumo = () => {
     ? sumValues(data, (value) => value.status === "processando", 0)
     : 0;
 
-  if (loading)
+  if (isLoading)
     return (
       <div style={{ width: "100%" }}>
         <Loading />

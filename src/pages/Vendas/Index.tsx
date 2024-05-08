@@ -8,9 +8,9 @@ import { Head } from "../../components/Head/Index";
 import { Message } from "../../components/Message/Index";
 
 export const Vendas = () => {
-  const { data, loading, error } = React.useContext(SalesContext);
+  const { data, isLoading, error } = React.useContext(SalesContext);
 
-  if (loading)
+  if (isLoading)
     return (
       <div style={{ width: "100%" }}>
         <Loading />
@@ -29,15 +29,14 @@ export const Vendas = () => {
           title="Vendas"
           description="Tenha acesso à todas as vendas que foram realizadas nos últimos 4 meses"
         />
-        {data &&
-          data.map((venda) => (
-            <NavLink key={venda.id} to={venda.id}>
-              <span>{venda.id}</span>
-              <p>{venda.nome}</p>
-              <p>{priceFormatter.format(venda.preco)}</p>
-            </NavLink>
-          ))}
-        {data?.length === 0 && (
+        {data.map((venda) => (
+          <NavLink key={venda.id} to={venda.id}>
+            <span>{venda.id}</span>
+            <p>{venda.nome}</p>
+            <p>{priceFormatter.format(venda.preco)}</p>
+          </NavLink>
+        ))}
+        {data.length === 0 && (
           <Message>Nenhuma venda realizada nesta data! 😅</Message>
         )}
       </PageContainer>

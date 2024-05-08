@@ -1,8 +1,8 @@
 import React from "react";
-import { useFetch } from "../hooks/useFetch";
 import { BASE_URL } from "../components/utils/api";
-import { IVenda } from "../@types/global";
+import { ISale } from "../@types/global";
 import { dateNow } from "../components/utils/time";
+import { useQuery } from "@tanstack/react-query";
 
 interface State {
   inicio: string;
@@ -14,14 +14,27 @@ type Action =
   | { type: "SET_FINAL"; payload: string };
 
 interface ISales {
-  data: IVenda[] | null;
-  loading: boolean;
-  error: string | null;
+  data: ISale[] | undefined;
+  isLoading: boolean;
+  error: string | undefined;
   state: State;
   dispatch: React.Dispatch<Action>;
 }
 
 export const SalesContext = React.createContext<ISales>({} as ISales);
+
+async function getSales(
+  initialDate: string,
+  finalDate: string
+): Promise<ISale[]> {
+  const response = await fetch(
+    `${BASE_URL}/?inicio=${initialDate}&final=${finalDate}`
+  );
+
+  if (!response.ok) throw new Error("Ocorreu um erro ao buscar as vendas");
+
+  return response.json();
+}
 
 function reducer(state: State, action: Action) {
   switch (action.type) {
@@ -46,12 +59,22 @@ export const SalesContextProvider = ({ children }: React.PropsWithChildren) => {
     final: dateNow(),
   });
 
-  const URL = `${BASE_URL}/?inicio=${state.inicio}&final=${state.final}`;
-
-  const { data, loading, error } = useFetch<IVenda[]>(URL);
+  const { data, isFetching, error } = useQuery({
+    queryKey: ["sales", state.inicio, state.final],
+    queryFn: () => getSales(state.inicio, state.final),
+    staleTime: 1000 * 60,
+  });
 
   return (
-    <SalesContext.Provider value={{ data, loading, error, state, dispatch }}>
+    <SalesContext.Provider
+      value={{
+        data,
+        isLoading: isFetching,
+        error: error?.message,
+        state,
+        dispatch,
+      }}
+    >
       {children}
     </SalesContext.Provider>
   );
