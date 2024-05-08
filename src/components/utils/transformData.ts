@@ -1,4 +1,4 @@
-import { IVenda } from "../../@types/global";
+import { ISale } from "../../@types/global";
 
 interface VendaDia {
   data: string;
@@ -7,7 +7,7 @@ interface VendaDia {
   falha: number;
 }
 
-export function transformData(data: IVenda[]): VendaDia[] {
+export function transformData(data: ISale[]): VendaDia[] {
   const days = data.reduce((acc: { [key: string]: VendaDia }, item) => {
     const day = item.data.split(" ")[0];
     if (!acc[day]) {

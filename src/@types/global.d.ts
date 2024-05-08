@@ -1,4 +1,4 @@
-export interface IVenda {
+export interface ISale {
   id: string;
   nome: string;
   status: "falha" | "pago" | "processando";

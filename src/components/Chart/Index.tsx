@@ -7,10 +7,10 @@ import {
   Legend,
   CartesianGrid,
 } from "recharts";
-import { IVenda } from "../../@types/global";
+import { ISale } from "../../@types/global";
 import { transformData } from "../utils/transformData";
 
-export const Chart = ({ data }: { data: IVenda[] }) => {
+export const Chart = ({ data }: { data: ISale[] }) => {
   const chartData = transformData(data);
 
   return (
